@@ -5,11 +5,16 @@ import { UserAuth } from '../context/AuthContext';
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const { user, signUp } = UserAuth();
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password.length < 6) {
+      setError('Password should be at least 6 characters long');
+      return;
+    }
     try {
       await signUp(email, password);
       navigate('/')
@@ -17,7 +22,7 @@ const Signup = () => {
       console.log(error);
     }
   };
-
+  
   return (
     <>
       <div className='w-full h-screen'>
@@ -52,6 +57,7 @@ const Signup = () => {
                 <button className='bg-red-600 py-3 my-6 rounded font-bold'>
                   Sign Up
                 </button>
+                {error && <p className='text-red-500 text-sm mb-1'>{error}</p>}
                 <div className='flex justify-between items-center text-sm text-gray-600'>
                   <p>
                     <input className='mr-2' type='checkbox' />
