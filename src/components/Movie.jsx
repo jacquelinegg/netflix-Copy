@@ -37,33 +37,6 @@ const Movie = ({ item }) => {
     setShowModal(true);
   };
 
-  const addComment = async (passedID, comment) => {
-  
-    try {
-      await updateDoc(movieRef, {
-        savedShows: movies.map((item) =>
-          item.id === passedID ? { ...item, comment } : item
-        ),
-      });
-      setCurrentMovie(null);
-      setComment("");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  
-  const updateComment = async (passedID, comment) => {
-    try {
-      await updateDoc(movieRef, {
-        savedShows: movies.map(item => item.id === passedID ? { ...item, comment } : item)
-      });
-      setCurrentMovie(null);
-      setComment('');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
       <img
